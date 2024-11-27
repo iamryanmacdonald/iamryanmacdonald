@@ -1,0 +1,19 @@
+name: Update Metrics
+on:
+  # Schedule daily updates
+  schedule: [{cron: "23 3 * * *"}]
+  # (optional) Run workflow manually
+  workflow_dispatch:
+  # (optional) Run workflow when pushing on main
+  push: {branches: ["main"]}
+jobs:
+  github-metrics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Classic Metrics
+        uses: lowlighter/metrics@v3.34
+        with:
+          base: header, repositories
+          filename: metrics.classic.svg
+          plugin_lines: yes
+          token: ${{ secrets.METRICS_TOKEN }}
